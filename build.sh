@@ -131,7 +131,7 @@ echo " ";
 echo " ";
 ##########################################
 export ARCH=arm64
-export CROSS_COMPILE=~/Toolchain/bin/aarch64-linux-android-
+export CROSS_COMPILE=~/Toolchain-a53/bin/aarch64-cortex_a53-linux-gnueabi-
 ##########################################
 echo " Creating directories ";
 echo " ";
