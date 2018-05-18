@@ -119,6 +119,7 @@ echo " ";
 echo " Cleaning old build directories ";
 echo " ";
 echo " ";
+rm -rf ~/Moun_Kernel
 echo " ";
 echo " ";
 echo " ";
@@ -130,7 +131,7 @@ echo " ";
 echo " ";
 ##########################################
 export ARCH=arm64
-export CROSS_COMPILE=~/Toolchain-a53/bin/aarch64-cortex_a53-linux-gnueabi-
+export CROSS_COMPILE=~/Toolchain/bin/aarch64-linux-android-
 ##########################################
 echo " Creating directories ";
 echo " ";
@@ -138,9 +139,11 @@ echo " ";
 echo " ";
 echo " ";
 echo " ";
-mkdir outputdTissotStock
+mkdir outputdTissot
 
-mkdir ~/Moun_Kernel/Moun_Kernel_V$KV-TissotStock
+mkdir ~/Moun_Kernel
+
+mkdir /home/mountaser/Moun_Kernel/Moun_Kernel_V$KV-Tissot
 
 echo " Started Building the Kernels ! ";
 echo " ";
@@ -153,7 +156,7 @@ echo " ";
 
 ##########################################
 
-echo " Started Building Tissot Stock! ";
+echo " Started Building Tissot ! ";
 echo " ";
 echo " ";
 echo " ";
@@ -174,8 +177,8 @@ echo " ";
 echo " ";
 echo " ";
 echo " ";
-make -C $(pwd) O=outputdTissotStock tissot-perf_defconfig
-make -j3 -C $(pwd) O=outputdTissotStock
+make -C $(pwd) O=outputdTissot custom_tissot-perf_defconfig
+make -j7 -C $(pwd) O=outputdTissot
 
 ##########################################
 
@@ -194,9 +197,10 @@ echo " ";
 echo " ";
 echo " ";
 
-cp outputdTissotStock/arch/arm64/boot/Image.gz-dtb ~/Moun_Kernel/Moun_Kernel_V$KV-TissotStock/Image.gz-dtb
 
-cp -r template/. ~/Moun_Kernel/Moun_Kernel_V$KV-TissotStock
+cp outputdTissot/arch/arm64/boot/Image.gz-dtb ~/Moun_Kernel/Moun_Kernel_V$KV-Tissot/Image.gz-dtb
+
+cp -r template/. ~/Moun_Kernel/Moun_Kernel_V$KV-Tissot
 
 echo " Zipping Kernel Files ";
 echo " ";
@@ -227,9 +231,12 @@ echo " ";
 echo " ";
 
 ##########################################
+cd /home/mountaser/Moun_Kernel/Moun_Kernel_V$KV-Tissot
+zip -r9 Moun_Kernel_V$KV-Tissot.zip * -x Moun_Kernel_V$KV-Tissot.zip
 
-cd ~/Moun_Kernel/Moun_Kernel_V$KV-TissotStock
-zip -r9 Moun_Kernel_V$KV-TissotStock.zip * -x Moun_Kernel_V$KV-TissotStock.zip
+
+echo " uploading to Mega "; 
+megaput --path /Root/XDA/Moun_Kernel_Tissot/ ~/Moun_Kernel/Moun_Kernel_V$KV-Tissot/Moun_Kernel_V$KV-Tissot.zip
 
 echo " ";
 echo " ";
@@ -337,4 +344,4 @@ echo " ";
 echo " ";
 echo " ";
 echo " ";
-echo " Compiling is done !! ";
+echo " Compiling and uploading is done !! ";
